@@ -1,6 +1,7 @@
 echo "Installing expect..."
 
-sudo apt -y install expect
+sudo apt-get update
+sudo apt-get -y install expect
 
 if [ $? -eq 0 ]; then
     echo "expect installed!"

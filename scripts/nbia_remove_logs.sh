@@ -19,7 +19,7 @@ DOWNLOAD_DIR="/workspaces/data-loaders/nbia_downloads"
 
 echo "Removing NBIA log files..."
 
-rm "$DOWNLOAD_DIR/*.log"
+rm "$DOWNLOAD_DIR"/*.log*
 
 if [ $? -eq 0 ]; then
     echo "Removed NBIA logs."
