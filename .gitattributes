@@ -1,3 +1,16 @@
+# ===================
+# TCIA .gitattributes
+# ===================
+
+# The Cancer Imaging Archive (TCIA) is an online archive of cancer images in
+# various modalities. Downloading data from TCIA requires using the NBIA
+# Data Retriever CLI with a manifest file. We specify that git should not
+# change line endings in the manifest files.
+#
+# Learn more about TCIA here: https://www.cancerimagingarchive.net/
+# Learn more about NBIA Data Retriever CLI here: https://wiki.cancerimagingarchive.net/display/NBIA/NBIA+Data+Retriever+Command-Line+Interface+Guide
+*.tcia text eol=lf
+
 # ==================
 # C++ .gitattributes
 # ==================

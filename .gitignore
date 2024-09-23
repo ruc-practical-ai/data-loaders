@@ -1,3 +1,13 @@
+# Downloads
+nbia_downloads/*
+nbia_downloads/*/*
+
+# Installer files
+*.deb
+
+# Temporary files
+temp.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
