@@ -4,6 +4,7 @@ nbia_downloads/*/*
 
 # Installer files
 *.deb
+*.deb.*
 
 # Temporary files
 temp.txt

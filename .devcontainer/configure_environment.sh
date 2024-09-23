@@ -9,6 +9,11 @@ else
     exit 1
 fi
 
+echo "Installing NBIA Data Retriever..."
+echo "Learn more here: https://wiki.cancerimagingarchive.net/display/NBIA/NBIA+Data+Retriever+Command-Line+Interface+Guide"
+
+bash .devcontainer/nbia_data_retriever_install.sh
+
 echo "Installing http-server..."
 
 npm i -g http-server
