@@ -1,3 +1,14 @@
+echo "Installing expect..."
+
+sudo apt -y install expect
+
+if [ $? -eq 0 ]; then
+    echo "expect installed!"
+else
+    echo "Failed to install expect."
+    exit 1
+fi
+
 echo "Installing http-server..."
 
 npm i -g http-server

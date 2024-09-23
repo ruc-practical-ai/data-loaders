@@ -106,3 +106,9 @@ This repository is provided with an MIT license. See the `LICENSE` file.
 
 Please email Mauro Sanchirico at ms3978@camden.rutgers.edu (academic) or sanchirico.mauro@gmail.com (personal) with questions, comments, bug reports, or suggestions for improvement.
 
+## To-do
+
+The following improvements need to be made.
+
+* Refactor `.devcontainer/configure_environment.sh` to use a function for each tool to be installed.
+* Refactor `./scripts/nbia_*.sh` into a single script with arguments for NEW (default), REPAIR, RESUME.
