@@ -61,6 +61,12 @@ bash ../scripts/start_server.sh
 
 It is recommended to use this repository via codespaces or in a locally hosted devcontainer. If attempting to install locally, the following dependencies are required.
 
+#### NBIA Data Retriever
+
+Some tools in this repository use Python to generate datasets or download basic machine learning datasets. Other tools access data from The Cancer Imaging Archive (TCIA) using the National Biomedical Imaging Archives (NBIA) Data Retriever.
+
+The NBIA Data Retriever command line interface is required to run some scripts in this repository. Installation and usage instructions can be found [here](https://wiki.cancerimagingarchive.net/display/NBIA/NBIA+Data+Retriever+Command-Line+Interface+Guide).
+
 #### Expect
 
 Scripts in this repository require the [expect](https://linux.die.net/man/1/expect) linux utility. Some scripts require expect to work. Install expect using the preferred method for your system.
@@ -141,11 +147,64 @@ Now specify that VSCode should use the that interpreter (the one in `./.venv/Scr
 
 This repository contains some documentation in the form of reveal.js presentations, hosted as HTML pages. To view HTML pages directly in a browser, simply navigate to the pages of interest and open them with a preferred web browser.
 
-#### Using the Python Data
+## About the Datasets
+
+### Fundamental Datasets
+
+The `pydatasets` package contains educational code to generate several basic machine learning datasets.
+
+### Online Datasets - Python
+
+The `pydatasets` package also contains code to access several machine learning datasets hosted online, intended for educational and research purposes.
+
+### Online Datasets - The Cancer Imaging Archive (TCIA)
+
+TCIA is an online service which hosts a large archive of medical images of cancer accessible for public download. More information about TCIA can be found on its main webpage, [https://www.cancerimagingarchive.net/](https://www.cancerimagingarchive.net/):
+
+> "The Cancer Imaging Archive (TCIA) is a service which de-identifies and hosts a large publicly available archive of medical images of cancer.  TCIA is funded by the Cancer Imaging Program (CIP), a part of the United States  National Cancer Institute (NCI), and is managed by the Frederick National Laboratory for Cancer Research (FNLCR). The imaging data are organized as “collections” defined by a common disease (e.g. lung cancer), image modality or type (MRI, CT, digital histopathology, etc) or research focus. DICOM is the primary file format used by TCIA for radiology imaging.   An emphasis is made to provide supporting data related to the images such as patient outcomes, treatment details, genomics and expert analyses."
+
+TCIA encourages researchers to publish results obtained on the TCIA collections. See [https://www.cancerimagingarchive.net/about-the-cancer-imaging-archive-tcia/](https://www.cancerimagingarchive.net/about-the-cancer-imaging-archive-tcia/) for additional information.
+
+#### Browse TCIA Collections
+
+You can browse the datasets hosted on TCIA here: [https://www.cancerimagingarchive.net/browse-collections/](https://www.cancerimagingarchive.net/browse-collections/).
+
+#### The National Biomedical Imaging Archive (NBIA) Data Retriever
+
+The NBIA Data Retriever is used to download data from The Cancer Imaging Archive (TCIA). More information on the NBIA Data Retriever can be found [here](https://wiki.nci.nih.gov/display/NBIA).
+
+The NBIA Data Retriever requires a manifest file which specifies which data it should download from TCIA before performing a download.
+
+Manifest files ensure data downloads are repeatable. This repository contains several manifest files in the `nbia_manifest/` directory.
+
+The NBIA Data Retriever has both a command line and a graphical user interface. The tools in `pydatasets` abstract this away however, and users of these tools should not need to interact with the NBIA interface.
+
+For those who do need to interact directly with the NBIA Data Retriever, more information can be found on its CLI [here](https://wiki.cancerimagingarchive.net/display/NBIA/NBIA+Data+Retriever+Command-Line+Interface+Guide).
+
+#### TCIA User Guide
+
+Complete instructions on interacting with TCIA can be found in the [user guide](https://wiki.cancerimagingarchive.net/display/NBIA/TCIA+Radiology+Portal+User%27s+Guide).
+
+#### Producing a New Manifest File
+
+The manifest files are produced by browsing the online [TCIA search tool](https://nbia.cancerimagingarchive.net/nbia-search/).
+
+If a manifest file needed is not found, follow the steps below to produce one.
+
+1. Navigate to the TCIA search tool in a web browser: [https://nbia.cancerimagingarchive.net/nbia-search/](https://nbia.cancerimagingarchive.net/nbia-search/).
+2. Select the datasets of interest on the sidebar.
+3. Add the data products of interest to the shopping cart.
+4. Navigate to the `Cart` tab and click `Download`.
+5. This will produce a manifest file in your `Downloads` folder (or your browser's default location).
+6. Move the manifest file into your development environment (e.g., make a new folder in the `nbia_manifest_files` directory and put the file there).
+
+Once you have placed a manifest file here, the data loader tools can use it to download images from TCIA.
 
 ## License
 
 This repository is provided with an MIT license. See the `LICENSE` file.
+
+Datasets downloaded with the NBIA Data Retriever will include a license file with the dataset in the `nbia_downloads` folder. These licenses may come with extra constraints per dataset that must be adhered to.
 
 ## Contributing
 
