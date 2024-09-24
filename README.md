@@ -1,10 +1,10 @@
-# Loaded Lecture Template
+# Data Loading Tools
 
-Template for lecture notes with reveal.js presentations, latex dependencies, poetry, and VS Code extensions for Python.
+This repository holds tools for loading datasets to be used in RUC's Practical AI class.
 
-## Installation and Usage
+## Installation and Usage via Codespaces or a Devcontainer (Recommended)
 
-### Installation and Use via Github Codespaces (Recommended)
+### Installation via Codespaces (Recommended)
 
 To use this repository via codespaces simply click on the `code` &rarr; `codespaces` &rarr; `create codespace on main` buttons.
 
@@ -16,9 +16,34 @@ Note the codespace might take a long time to build. This is usually due to TexLi
 
 If required, use `Cmd` / `Ctrl` + `Shift` + `P` &rarr; `Codespaces: Rebuild Container` to rebuild the container. Do not use `gh codespace rebuild`. This takes a long time since it re-downloads the entire image.
 
-### Display of Presentations via Github Codespaces (Recommended)
+### Installation via a Devcontainer
 
-Navigate to the `presentations` folder.
+To install via a locally hosted devcontainer, confirm your machine has a local devcontainer compatible environment (e.g., confirm you have Docker Desktop and Windows Subsystem Linux if running on Windows). Clone the repository.
+
+```bash
+git clone https://github.com/ruc-practical-ai/data-loaders.git
+cd data-loaders
+```
+
+Navigate to the repository directory and open it in VS Code.
+
+```bash
+code .
+```
+
+VS Code should prompt you to open in a devcontainer. If it does not or if the container does not build, use the command `Cmd` / `Ctrl` + `Shift` + `P` &rarr; `Devcontainers: Rebuild Container`
+
+### Using the Python Data Generators via Codespaces or a Devcontainer
+
+@TODO (Mauro Sanchirico): Populate
+
+### Using the NBIA Data Loaders via Codespaces or a Devcontainer
+
+@TODO (Mauro Sanchirico): Populate
+
+### Display of Presentations in Codespaces or a Devcontainer
+
+This repository contains some presentations made in reveal.js. To view this, navigate to the `presentations` folder.
 
 ```bash
 cd presentations
@@ -30,11 +55,19 @@ Start an http-server.
 bash ../scripts/start_server.sh
 ```
 
+## Local Installation and Use (Not Recommended)
+
 ### Dependencies for Local Installation
+
+It is recommended to use this repository via codespaces or in a locally hosted devcontainer. If attempting to install locally, the following dependencies are required.
+
+#### Expect
+
+Scripts in this repository require the [expect](https://linux.die.net/man/1/expect) linux utility. Some scripts require expect to work. Install expect using the preferred method for your system.
 
 #### Reveal.js
 
-This project is built on [reveal.js](https://revealjs.com/). All reveal.js dependencies are included in the repository. The repository itself is a modified [basic setup](https://revealjs.com/installation/#basic-setup) of reveal.js.
+This project uses [reveal.js](https://revealjs.com/) for some presentations in the `presentations` folder. All reveal.js dependencies are included in the repository. The repository itself is a modified [basic setup](https://revealjs.com/installation/#basic-setup) of reveal.js.
 
 #### Poetry
 
@@ -56,24 +89,22 @@ In codespaces, TexLive installation is also handled in the development container
 
 ### Local Installation
 
+#### Project Cloning
+
 To install locally, first install the required dependencies (Poetry and TexLive), then clone the repository and navigate to its directory.
 
 ```bash
-git clone https://github.com/ruc-practical-ai/example-reveal-js-presentation.git
-cd example-reveal-js-presentation
+git clone https://github.com/ruc-practical-ai/data-loaders.git
+cd data-loaders
 ```
-
-#### Viewing HTML Pages Directly in a Browser from Local Installation
-
-To view HTML pages directly in a browser, simply navigate to the pages of interest and open them with a preferred web browser.
 
 #### Installing Python Dependencies Locally
 
 To install locally, first install the required dependencies (Poetry and TexLive), then clone the repository and navigate to its directory.
 
 ```bash
-git clone https://github.com/ruc-practical-ai/loaded-lecture-template.git
-cd loaded-lecture-template
+git clone https://github.com/ruc-practical-ai/data-loaders.git
+cd data-loaders
 ```
 
 Configure Poetry to install its virtual environment inside the repository directory.
@@ -85,7 +116,7 @@ poetry config virtualenvs.in-project true
 Install the repository's Python dependencies.
 
 ```bash
-poetry install --no-root
+poetry install
 ```
 
 Check where Poetry built the virtual environment with the following command.
@@ -97,6 +128,20 @@ poetry env info --path
 Open the command pallette with `Ctrl` + `Shift` + `P` and type `Python: Select Interpreter`.
 
 Now specify that VSCode should use the that interpreter (the one in `./.venv/Scripts/python.exe`). Once you specify this, Jupyter notebooks should show the project's interpreter as an option when you click the `kernel` icon or the small icon showing the current version of python (e.g., `Python 3.12.1`) and then click `Select Another Kernel`, and finally click `Python Environments...`.
+
+### Using the Python Data Generators from a Local Installation
+
+@TODO(Mauro Sanchirico): Populate
+
+### Using the NBIA Data Loaders from a Local Installation
+
+@TODO(Mauro Sanchirico): Populate
+
+### Display of Presentations from a Local Installation
+
+This repository contains some documentation in the form of reveal.js presentations, hosted as HTML pages. To view HTML pages directly in a browser, simply navigate to the pages of interest and open them with a preferred web browser.
+
+#### Using the Python Data
 
 ## License
 
@@ -111,4 +156,3 @@ Please email Mauro Sanchirico at ms3978@camden.rutgers.edu (academic) or sanchir
 The following improvements need to be made.
 
 * Refactor `.devcontainer/configure_environment.sh` to use a function for each tool to be installed.
-* Refactor `./scripts/nbia_*.sh` into a single script with arguments for NEW (default), REPAIR, RESUME.

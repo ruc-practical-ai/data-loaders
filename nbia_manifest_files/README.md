@@ -85,7 +85,7 @@ This repository contains several manifest files ready to use for downloading dat
 
 A small test manifest is provided to enable trying out the tools in this repository without downloading large datasets.
 
-The test manifest downloads 4 CT scans from the Lung Phantom dataset by Zhao, B. More information about this dataset can be found [here](https://www.cancerimagingarchive.net/collection/lung-phantom/).
+The test manifest downloads CT scans from the Lung Phantom dataset by Zhao, B. More information about this dataset can be found [here](https://www.cancerimagingarchive.net/collection/lung-phantom/).
 
 Cite this dataset as follows.
 
