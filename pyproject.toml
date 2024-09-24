@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "loaded-lecture-template"
+name = "pydatasets"
 version = "0.1.0"
-description = "Template for lecture notes with reveal.js presentations, latex dependencies, poetry, and VS Code extensions for Python."
-authors = ["Mauro J. Sanchirico III <156733573+mauro-j-sanchirico@users.noreply.github.com>"]
+description = "Python package for loading academic and public ML datasets."
+authors = ["Mauro J. Sanchirico III <sanchirico.mauro@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 

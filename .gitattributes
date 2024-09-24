@@ -54,6 +54,12 @@
 *.app   binary
 
 # =====================
+# Shell .gitattributes
+# =====================
+*.tcl   text eol=lf
+*.sh    text eol=lf
+
+# =====================
 # Python .gitattributes
 # =====================
 
