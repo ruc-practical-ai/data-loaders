@@ -66,16 +66,17 @@ expect ./scripts/nbia_redownload.sh PATH/TO/MANIFEST.tcia PATH/TO/DOWNLOAD_LOCAT
 
 The manifest files are produced by browsing the online [TCIA search tool](https://nbia.cancerimagingarchive.net/nbia-search/).
 
-If a manifest file needed is not found, follow the steps below to produce one.
+A manifest file can either be downloaded from the TCIA search tool by clicking a download button for a dataset, or the following steps can be followed to produce a custom manifest file.
 
 1. Navigate to the TCIA search tool in a web browser: [https://nbia.cancerimagingarchive.net/nbia-search/](https://nbia.cancerimagingarchive.net/nbia-search/).
 2. Select the datasets of interest on the sidebar.
 3. Add the data products of interest to the shopping cart.
 4. Navigate to the `Cart` tab and click `Download`.
 5. This will produce a manifest file in your `Downloads` folder (or your browser's default location).
-6. Move the manifest file into your development environment (e.g., make a new folder in the `nbia_manifest_files` directory and put the file there).
 
-Once you have placed a manifest file in this environment, the data loader tools can use it to download images from TCIA.
+Once you have a manifest file, move it into your development environment (e.g., make a new folder in the `nbia_manifest_files` directory and put the file there).
+
+Once you have placed a manifest file in this environment, the tools in this repository can be used it to download images from TCIA.
 
 ## Available Manifest Files
 
