@@ -1,5 +1,4 @@
 # Downloads
-downloads/*
 downloads/*/*
 !downloads/README.md
 !downloads/*/README.md

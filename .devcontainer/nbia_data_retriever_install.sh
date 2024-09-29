@@ -40,7 +40,7 @@ echo "Creating desktop directory needed by install and running installer..."
 
 sudo mkdir -p /usr/share/desktop-directories/ &&
 sudo -S dpkg -i nbia-data-retriever-4.4.2.deb &&
-rm /workspaces/data-loaders/nbia-data-retriever-4.4.2.deb
+sudo rm -f /workspaces/data-loaders/nbia-data-retriever-4.4.2.deb*
 
 if [ $? -eq 0 ]; then
     echo "Installed NBIA Data Retriever!"
