@@ -151,11 +151,11 @@ This repository contains some documentation in the form of reveal.js presentatio
 
 ### Fundamental Datasets
 
-The `pydatasets` package contains educational code to generate several basic machine learning datasets.
+The `pydatapull` package contains educational code to generate several basic machine learning datasets.
 
 ### Online Datasets - Python
 
-The `pydatasets` package also contains code to access several machine learning datasets hosted online, intended for educational and research purposes.
+The `pydatapull` package also contains code to access several machine learning datasets hosted online, intended for educational and research purposes.
 
 ### Online Datasets - The Cancer Imaging Archive (TCIA)
 
@@ -177,7 +177,7 @@ The NBIA Data Retriever requires a manifest file which specifies which data it s
 
 Manifest files ensure data downloads are repeatable. This repository contains several manifest files in the `nbia_manifest/` directory.
 
-The NBIA Data Retriever has both a command line and a graphical user interface. The tools in `pydatasets` abstract this away however, and users of these tools should not need to interact with the NBIA interface.
+The NBIA Data Retriever has both a command line and a graphical user interface. The tools in `pydatapull` abstract this away however, and users of these tools should not need to interact with the NBIA interface.
 
 For those who do need to interact directly with the NBIA Data Retriever, more information can be found on its CLI [here](https://wiki.cancerimagingarchive.net/display/NBIA/NBIA+Data+Retriever+Command-Line+Interface+Guide).
 

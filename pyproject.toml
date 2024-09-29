@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pydatasets"
+name = "pydatapull"
 version = "0.1.0"
 description = "Python package for loading academic and public ML datasets."
 authors = ["Mauro J. Sanchirico III <sanchirico.mauro@gmail.com>"]
