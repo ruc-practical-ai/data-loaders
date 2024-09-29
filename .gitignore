@@ -2,6 +2,7 @@
 downloads/*
 downloads/*/*
 !downloads/README.md
+!downloads/*/README.md
 
 # Installer files
 *.deb
@@ -23,7 +24,6 @@ __pycache__/
 build/
 develop-eggs/
 dist/
-downloads/
 eggs/
 .eggs/
 lib/
