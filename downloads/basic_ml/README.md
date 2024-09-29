@@ -1,4 +1,4 @@
-# Basic ML Downloard Location
+# Basic ML Datasets Download Location
 
 This is the default download location for basic machine learning datasets.
 

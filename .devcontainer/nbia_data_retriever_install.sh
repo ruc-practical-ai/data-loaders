@@ -21,15 +21,23 @@
 echo "Downloading NBIA Data Retriever..."
 
 installer_web_location="https://cbiit-download.nci.nih.gov/nbia/releases/ForTCIA/NBIADataRetriever_4.4/nbia-data-retriever-4.4.2.deb"
+installer_downloads="/workspaces/data-loaders/downloads/installers"
+installer_local_location="$installer_downloads/nbia-data-retriever-4.4.2.deb"
 
-wget "$installer_web_location"
-
-if [ $? -eq 0 ]; then
-    echo "Downloaded NBIA Data Retriever!"
+if [ -e "$installer_local_location" ]; then
+    echo "NBIA installer exists. Proceeding with install."
 else
-    echo "Failed to download NBIA Data Retriever."
-    exit 1
+    echo "NBIA installer not found. Attempting to download."
+    wget -P "$installer_local_location" "$installer_web_location"
+
+    if [ $? -eq 0 ]; then
+        echo "Downloaded NBIA Data Retriever!"
+    else
+        echo "Failed to download NBIA Data Retriever."
+        exit 1
+    fi
 fi
+
 
 # The NBIA Data Retriever installer requires a desktop directory to run. If
 # this directory is not present the installer will error when attempting to
@@ -38,14 +46,20 @@ fi
 
 echo "Creating desktop directory needed by install and running installer..."
 
-sudo mkdir -p /usr/share/desktop-directories/ &&
-sudo -S dpkg -i nbia-data-retriever-4.4.2.deb &&
-sudo rm -f /workspaces/data-loaders/nbia-data-retriever-4.4.2.deb*
+sudo mkdir -p /usr/share/desktop-directories/ && \
+sudo -S dpkg -i "$installer_local_location"
 
-if [ $? -eq 0 ]; then
+# Check the install location by checking for the executable since due to a
+# known bug in the installer's dependencies, it will error out when attempting
+# to install in headless Ubuntu, even though the installer finished
+# successfully.
+nbia_install_location="/opt/nbia-data-retriever/nbia-data-retriever"
+
+if [ -e "$nbia_install_location" ]; then
     echo "Installed NBIA Data Retriever!"
 else
     echo "Failed to install NBIA Data Retriever."
     exit 1
 fi
 
+exit 0
