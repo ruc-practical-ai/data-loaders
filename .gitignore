@@ -1,7 +1,8 @@
 # Downloads
-nbia_downloads/*
-nbia_downloads/*/*
-!nbia_downloads/README.md
+downloads/*
+downloads/*/*
+!downloads/README.md
+!downloads/*/README.md
 
 # Installer files
 *.deb
