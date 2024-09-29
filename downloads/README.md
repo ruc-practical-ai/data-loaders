@@ -10,7 +10,7 @@ As long as the host machine's corresponding folder remains intact, Dev Container
 
 Each folder in the downloads folder represents a specific dataset, e.g.,
 
-```bash
+```text
 .
 |-- README.md
 |-- basic_ml         # Basic ML datasets
