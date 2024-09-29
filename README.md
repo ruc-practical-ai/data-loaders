@@ -205,7 +205,7 @@ Once you have placed a manifest file in this environment, the tools in this repo
 
 This repository is provided with an MIT license. See the `LICENSE` file.
 
-Datasets downloaded with the NBIA Data Retriever will include a license file with the dataset in the `nbia_downloads` folder. These licenses may come with extra constraints per dataset that must be adhered to.
+Datasets downloaded with the NBIA Data Retriever will include a license file with the dataset in the `downloads/nbia` folder. These licenses may come with extra constraints per dataset that must be adhered to.
 
 ## Contributing
 

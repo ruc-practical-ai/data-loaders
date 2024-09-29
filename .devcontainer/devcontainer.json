@@ -6,9 +6,12 @@
     "waitFor": "onCreateCommand",
     "updateContentCommand": "",
     "postCreateCommand": "bash .devcontainer/configure_environment.sh",
+    "postAttachCommand": "git config --global --add safe.directory /workspaces/data-loaders",
     "customizations": {
         "codespaces": {
-            "openFiles": []
+            "openFiles": [
+                "README.md"
+            ]
         },
         "vscode": {
             "extensions": [

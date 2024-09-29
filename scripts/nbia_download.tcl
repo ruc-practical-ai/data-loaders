@@ -38,7 +38,7 @@
 #
 # expect nbia_download.tcl DOWNLOAD -1 \
 #    /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia \
-#    /workspaces/data-loaders/nbia_downloads/
+#    /workspaces/data-loaders/downloads/nbia
 #
 # Use the REDOWNLOAD argument to completely redownload a previously downloaded
 # dataset (e.g., if the previously downloaded dataset is corrupted). This will
@@ -47,14 +47,14 @@
 #
 # expect nbia_download.tcl REDOWNLOAD -1 \
 #    /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia \
-#    /workspaces/data-loaders/nbia_downloads/
+#    /workspaces/data-loaders/downloads/nbia/
 #
 # Use the RESUME argument to resume a previous download. This will only download
 # files not present in the previous download.
 #
 # expect nbia_download.tcl RESUME -1 \
 #    /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia \
-#    /workspaces/data-loaders/nbia_downloads/
+#    /workspaces/data-loaders/downloads/nbia/
 #
 # =============================================================================
 
@@ -98,7 +98,7 @@ Use the DOWNLOAD argument to start a new download.
 
 expect nbia_download.tcl DOWNLOAD -1\
     /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia\
-    /workspaces/data-loaders/nbia_downloads/
+    /workspaces/data-loaders/downloads/nbia/
 
 Use the REDOWNLOAD argument to completely redownload a previously downloaded
 dataset (e.g., if the previously downloaded dataset is corrupted). This will
@@ -107,14 +107,14 @@ in the specified downloads folder.
 
 expect nbia_download.tcl REDOWNLOAD -1\
 /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia\
-/workspaces/data-loaders/nbia_downloads/
+/workspaces/data-loaders/downloads/nbia/
 
 Use the RESUME argument to resume a previous download. This will only download
 files not present in the previous download.
 
 expect nbia_download.tcl RESUME -1\
 /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia\
-/workspaces/data-loaders/nbia_downloads/
+/workspaces/data-loaders/downloads/nbia/
 }
 
 ##
@@ -139,7 +139,7 @@ proc print_usage {} {
     append usage_string " <manifest_filename> <download_location>"
 
     puts "$usage_string"
-    puts "Example: expect scripts/nbia_download.tcl DOWNLOAD -1 /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia /workspaces/data-loaders/nbia_downloads/"
+    puts "Example: expect scripts/nbia_download.tcl DOWNLOAD -1 /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-*.tcia /workspaces/data-loaders/downloads/nbia/"
     puts "Help: expect scripts/nbia_download.tcl --help"
     puts "Version: expect scripts/nbia_download.tcl --version"
 }

@@ -13,7 +13,7 @@
 # =============================================================================
 
 SCRIPTS_FOLDER="/workspaces/data-loaders/scripts"
-NBIA_DOWNLOADS_FOLDER="/workspaces/data-loaders/nbia_downloads"
+NBIA_DOWNLOADS_FOLDER="/workspaces/data-loaders/downloads/nbia"
 
 confirm_action() {
     read -p "Are you sure you want to proceed? [Y/n]: " response

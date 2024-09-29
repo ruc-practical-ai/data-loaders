@@ -15,7 +15,7 @@
 #
 # =============================================================================
 
-DOWNLOAD_DIR="/workspaces/data-loaders/nbia_downloads"
+DOWNLOAD_DIR="/workspaces/data-loaders/downloads/nbia"
 
 echo "Removing NBIA log files..."
 

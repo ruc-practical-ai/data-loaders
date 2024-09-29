@@ -23,7 +23,7 @@ If downloading a new dataset for the first time, use the `scripts/nbia_download.
 For example, from the root of this repository, run:
 
 ```bash
-expect ./scripts/nbia_download.sh /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-1727052249988.tcia /workspaces/data-loaders/nbia_downloads
+expect ./scripts/nbia_download.sh /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-1727052249988.tcia /workspaces/data-loaders/downloads/nbia
 ```
 
 General usage:
@@ -39,7 +39,7 @@ If resuming a scripted download, use the `scripts/nbia_resume_download.sh` scrip
 For example, from the root of this repository, run:
 
 ```bash
-expect ./scripts/nbia_resume_download.sh /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-1727052249988.tcia /workspaces/data-loaders/nbia_downloads
+expect ./scripts/nbia_resume_download.sh /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-1727052249988.tcia /workspaces/data-loaders/downloads/nbia
 ```
 
 General usage:
@@ -53,7 +53,7 @@ expect ./scripts/nbia_resume_download.sh PATH/TO/MANIFEST.tcia PATH/TO/DOWNLOAD_
 If re-downloading a dataset (e.g., one that was corrupted) use the `scripts/nbia_redownload.sh` script.
 
 ```bash
-expect ./scripts/nbia_redownload.sh /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-1727052249988.tcia /workspaces/data-loaders/nbia_downloads
+expect ./scripts/nbia_redownload.sh /workspaces/data-loaders/nbia_manifest_files/small_test_manifest/manifest-1727052249988.tcia /workspaces/data-loaders/downloads/nbia
 ```
 
 General usage:
@@ -80,7 +80,7 @@ Once you have placed a manifest file in this environment, the tools in this repo
 
 ## Available Manifest Files
 
-This repository contains several manifest files ready to use for downloading data. When data is downloaded using the tools in this repository, a `LICENSE` file is automatically placed in the corresponding directory in `nbia_downloads`. For each dataset, refer to the corresponding `LICENSE` file for its terms of use.
+This repository contains several manifest files ready to use for downloading data. When data is downloaded using the tools in this repository, a `LICENSE` file is automatically placed in the corresponding directory in `downloads/nbia`. For each dataset, refer to the corresponding `LICENSE` file for its terms of use.
 
 ### Small Test Manifest: Lung Phantom Dataset (Zhao, B.)
 
