@@ -111,6 +111,7 @@
         "histtype",
         "holoviews",
         "hovercolor",
+        "hstack",
         "hvplot",
         "ifft",
         "iife",
