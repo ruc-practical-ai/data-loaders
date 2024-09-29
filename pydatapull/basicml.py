@@ -235,26 +235,27 @@ def generate_multiclass_multidistribution_dataset(
           to ultimately be merged to an M-dimensional feature vector.
 
     Args:
-        mu_matrix: K-element list of L_k x M matrices defining the means of
-            L_k M_k-dimensional normal distributions, where k is in [1, K] such
-            that each element defines a distribution which is the union of L_k
-            distributions.
+        mu_matrix_list: K-element list of L_k x M matrices defining the means
+            of L_k M_k-dimensional normal distributions, where k is in [1, K]
+            such that each element defines a distribution which is the union of
+            L_k distributions.
 
-        sigma_matrix: K-element list of L_k x M matrices defining the standard
-            deviations of L_k M_k-dimensional normal distributions, where k is
-            in [1, K] such that each element defines a distribution which is
-            the union of L_k distributions.
+        sigma_matrix_list: K-element list of L_k x M matrices defining the
+            standard deviations of L_k M_k-dimensional normal distributions,
+            where k is in [1, K] such that each element defines a distribution
+            which is the union of L_k distributions.
 
-        choice_probabilities: K-element list of vectors, each of length L_k
-            defining the probability of sampling from each distribution, where
-            k is in [1, K] such that each element of the list defines the
+        choice_probabilities_list: K-element list of vectors, each of length
+            L_k defining the probability of sampling from each distribution,
+            where k is in [1, K] such that each element of the list defines the
             weights of a weighted draw from each of the L_k distributions.
 
-        n_samples: The total number of samples to draw.
+        label_list: K-element list of labels where each label is a string.
 
     Returns:
         An NxM matrix with N samples drawn from the M-dimensional distributions
-            with the specified draw probabilities.
+            with the specified draw probabilities and an N-element vector of
+            class labels.
     """
     numerical_labels = np.arange(0, len(labels))
     class_distributions = []
