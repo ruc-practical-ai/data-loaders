@@ -200,7 +200,7 @@ proc check_for_options {argv} {
             print_version
             exit 0
         } else {
-            puts "Invalid input argument."
+            puts " (nbia_download): Invalid input argument."
             print_usage
             exit -1
         }
@@ -219,7 +219,7 @@ proc check_for_options {argv} {
 proc check_argument_count {argc} {
     global CORRECT_ARGC
     if { $argc != $CORRECT_ARGC } {
-        puts "Not enough input arguments."
+        puts " (nbia_download): Not enough input arguments."
         print_usage
         exit 1
     }
@@ -271,7 +271,7 @@ switch $download_mode {
         send "M\n"
     }
     default {
-        puts "Unknown argument to $SCRIPT_NAME: $download_mode"
+        puts " (nbia_download): Unknown argument to $SCRIPT_NAME: $download_mode"
         print_usage
         exit 1
     }

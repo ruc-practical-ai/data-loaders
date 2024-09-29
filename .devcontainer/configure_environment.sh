@@ -98,7 +98,7 @@ add_aliases() {
     touch $HOME/.bash_profile
     file_name=$(basename "$1")
     wget -P $HOME $1
-    echo "source ~/$file_name" >> $HOME/.bash_profile
+    echo "source ~/$file_name" >> "$HOME/.bash_profile"
 }
 
 COMMAND_LINE_ALIASES_FILE="https://raw.githubusercontent.com/mauro-j-sanchirico/personal-scripts/refs/heads/main/bash_aliases/command_line.bash_aliases"
@@ -109,7 +109,7 @@ add_aliases $COMMAND_LINE_ALIASES_FILE
 add_aliases $GIT_ALIASES_FILE
 add_aliases $POETRY_ALIASES_FILE
 
-echo 'source $HOME/.bash_profile' >> $HOME/.bashrc
+echo 'source $HOME/.bash_profile' >> "$HOME/.bashrc"
 
 echo "Success!"
 

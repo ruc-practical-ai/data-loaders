@@ -6,7 +6,8 @@
     "waitFor": "onCreateCommand",
     "updateContentCommand": "",
     "postCreateCommand": "bash .devcontainer/configure_environment.sh",
-    "postAttachCommand": "git config --global --add safe.directory /workspaces/data-loaders",
+    "postAttachCommand": "bash .devcontainer/post_attach.sh",
+    "userEnvProbe": "loginInteractiveShell",
     "customizations": {
         "codespaces": {
             "openFiles": [
