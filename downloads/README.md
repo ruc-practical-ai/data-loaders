@@ -13,10 +13,13 @@ Each folder in the downloads folder represents a specific dataset, e.g.,
 ```bash
 .
 |-- README.md
-|-- basic_ml
+|-- basic_ml         # Basic ML datasets
 |   |-- ...
 |   `-- README.md
-`-- nbia
+|-- installers       # Installers, cached for faster container rebuilds
+|   |-- ...
+|   `-- README.md
+`-- nbia             # NBIA datasets
     |-- ...
     `-- README.md
 ```
