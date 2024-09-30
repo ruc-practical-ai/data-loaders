@@ -7,10 +7,10 @@ from numpy.typing import NDArray
 
 
 def _generate_random_columns(
-    mu_vector: NDArray[np.float64],
-    sigma_vector: NDArray[np.float64],
+    mu_vector: np.ndarray,
+    sigma_vector: np.ndarray,
     n_samples: int,
-) -> NDArray[np.float64]:
+) -> np.ndarray:
     """Generate a random matrix.
 
     The elements of each column are sampled from a different normal
@@ -33,21 +33,19 @@ def _generate_random_columns(
     Returns:
         The random matrix.
     """
-    distribution_list: List[NDArray[np.float64]] = []
+    distribution_list: List[np.ndarray] = []
     for mu, sigma in zip(mu_vector, sigma_vector):
-        distribution: NDArray[np.float64] = np.random.normal(
-            mu, sigma, n_samples
-        )
+        distribution: np.ndarray = np.random.normal(mu, sigma, n_samples)
         distribution_list.append(distribution)
-    random_columns: NDArray[np.float64] = np.column_stack(distribution_list)
+    random_columns: np.ndarray = np.column_stack(distribution_list)
     return random_columns
 
 
 def _generate_list_of_distributions(
-    mu_matrix: NDArray[np.float64],
-    sigma_matrix: NDArray[np.float64],
+    mu_matrix: np.ndarray,
+    sigma_matrix: np.ndarray,
     n_samples_per_distribution: int,
-) -> List[NDArray[np.float64]]:
+) -> List[np.ndarray]:
     """Generate a list of different random matrices.
 
     Each random matrix is of shape NxM where each row is one of N samples and
@@ -82,9 +80,9 @@ def _generate_list_of_distributions(
             (list element) for each row (distribution) defined in mu_matrix
             and sigma_matrix.
     """
-    distributions_list: List[NDArray[np.float64]] = []
+    distributions_list: List[np.ndarray] = []
     for mu_vector, sigma_vector in zip(mu_matrix, sigma_matrix):
-        distribution: NDArray[np.float64] = _generate_random_columns(
+        distribution: np.ndarray = _generate_random_columns(
             mu_vector, sigma_vector, n_samples=n_samples_per_distribution
         )
         distributions_list.append(distribution)
@@ -92,9 +90,9 @@ def _generate_list_of_distributions(
 
 
 def _merge_distributions(
-    choice_probabilities: NDArray[np.float64],
-    distributions_list: List[NDArray[np.float64]],
-) -> NDArray[np.float64]:
+    choice_probabilities: np.ndarray,
+    distributions_list: List[np.ndarray],
+) -> np.ndarray:
     """Probabilistically merge a list of distributions.
 
     Given a list of distributions (same-size random matrices where the columns
@@ -127,28 +125,26 @@ def _merge_distributions(
     """
     n_samples_per_distribution: int = distributions_list[0].shape[0]
     n_choices: int = len(distributions_list)
-    choices: NDArray[np.int64] = np.arange(0, n_choices)
-    choice_vector: NDArray[np.float64] = np.random.choice(
+    choices: NDArray[np.int32] = np.arange(0, n_choices)
+    choice_vector: np.ndarray = np.random.choice(
         choices, size=n_samples_per_distribution, p=choice_probabilities
     )
-    selected_distributions: List[NDArray[np.float64]] = []
+    selected_distributions: List[np.ndarray] = []
     for distribution_index in range(n_choices):
-        distribution: NDArray[np.float64] = distributions_list[
-            distribution_index
-        ]
-        mask: NDArray[np.float64] = choice_vector == distribution_index
-        selected_distribution: NDArray[np.float64] = distribution[mask]
+        distribution: np.ndarray = distributions_list[distribution_index]
+        mask: np.ndarray = choice_vector == distribution_index
+        selected_distribution: np.ndarray = distribution[mask]
         selected_distributions.append(selected_distribution)
-    final_distribution: NDArray[np.float64] = np.vstack(selected_distributions)
+    final_distribution: np.ndarray = np.vstack(selected_distributions)
     return final_distribution
 
 
 def _generate_class_distribution(
-    mu_matrix: NDArray[np.float64],
-    sigma_matrix: NDArray[np.float64],
-    choice_probabilities: NDArray[np.float64],
+    mu_matrix: np.ndarray,
+    sigma_matrix: np.ndarray,
+    choice_probabilities: np.ndarray,
     n_samples: int,
-) -> NDArray[np.float64]:
+) -> np.ndarray:
     """Generate the distribution of a single class.
 
     The distribution for a class is a weighted union of the multi-dimensional
@@ -180,10 +176,10 @@ def _generate_class_distribution(
         An NxM matrix with N samples drawn from the M-dimensional distributions
             with the specified draw probabilities.
     """
-    distributions_list: List[NDArray[np.float64]] = (
-        _generate_list_of_distributions(mu_matrix, sigma_matrix, n_samples)
+    distributions_list: List[np.ndarray] = _generate_list_of_distributions(
+        mu_matrix, sigma_matrix, n_samples
     )
-    final_distribution: NDArray[np.float64] = _merge_distributions(
+    final_distribution: np.ndarray = _merge_distributions(
         choice_probabilities, distributions_list
     )
     return final_distribution
@@ -191,11 +187,11 @@ def _generate_class_distribution(
 
 def generate_multiclass_multidistribution_dataset(
     n_samples_per_class: int,
-    mu_matrix_list: List[NDArray[np.float64]],
-    sigma_matrix_list: List[NDArray[np.float64]],
-    choice_probabilities_list: List[NDArray[np.float64]],
+    mu_matrix_list: List[np.ndarray],
+    sigma_matrix_list: List[np.ndarray],
+    choice_probabilities_list: List[np.ndarray],
     labels: List[str],
-) -> Tuple[NDArray[np.float64], NDArray[np.float64]]:
+) -> Tuple[np.ndarray, np.ndarray]:
     """Generate a multi-class, multi-distribution, stochastic dataset.
 
     This function generates a multi-class, multi-distribution stochastic
@@ -288,7 +284,7 @@ def generate_multiclass_multidistribution_dataset(
 
 def generate_xor_dataset(
     n_samples_per_class: int, sigma: float = 0
-) -> Tuple[NDArray[np.float64], NDArray[np.float64], List[str]]:
+) -> Tuple[np.ndarray, np.ndarray, List[str]]:
     """Generate a noisy XOR dataset.
 
     Args:
@@ -305,13 +301,11 @@ def generate_xor_dataset(
     Example:
         >>> x_features, y_labels, labels = generate_xor_dataset(100, sigma=0.1)
     """
-    mu_a: NDArray[np.float64] = np.array([[0, 0], [1, 1]])
-    mu_b: NDArray[np.float64] = np.array([[0, 1], [1, 0]])
-    mu_matrix_list: List[NDArray[np.float64]] = [mu_a, mu_b]
-    sigma_matrix_list: List[NDArray[np.float64]] = [np.full((2, 2), sigma)] * 2
-    choice_probabilities_list: List[NDArray[np.float64]] = [
-        np.array([0.5, 0.5])
-    ] * 2
+    mu_a: np.ndarray = np.array([[0, 0], [1, 1]])
+    mu_b: np.ndarray = np.array([[0, 1], [1, 0]])
+    mu_matrix_list: List[np.ndarray] = [mu_a, mu_b]
+    sigma_matrix_list: List[np.ndarray] = [np.full((2, 2), sigma)] * 2
+    choice_probabilities_list: List[np.ndarray] = [np.array([0.5, 0.5])] * 2
     labels = ["X1 = X2", "X1 != X2"]
     x_features, y_labels = generate_multiclass_multidistribution_dataset(
         n_samples_per_class,
@@ -397,39 +391,33 @@ def generate_half_moon_dataset(
         >>>     sigma=0.2,
         >>> )
     """
-    t_param_class_a: NDArray[np.float64] = np.linspace(
-        0, np.pi, n_clusters_per_class
-    )
-    t_param_class_b: NDArray[np.float64] = np.linspace(
+    t_param_class_a: np.ndarray = np.linspace(0, np.pi, n_clusters_per_class)
+    t_param_class_b: np.ndarray = np.linspace(
         np.pi, 2 * np.pi, n_clusters_per_class
     )
 
-    mu_x_class_a: NDArray[np.float64] = -radius_r / 2 + radius_r * np.cos(
+    mu_x_class_a: np.ndarray = -radius_r / 2 + radius_r * np.cos(
         t_param_class_a
     )
-    mu_y_class_a: NDArray[np.float64] = (
-        separation_offset_d + radius_r * np.sin(t_param_class_a)
+    mu_y_class_a: np.ndarray = separation_offset_d + radius_r * np.sin(
+        t_param_class_a
     )
 
-    mu_x_class_b: NDArray[np.float64] = radius_r / 2 + radius_r * np.cos(
+    mu_x_class_b: np.ndarray = radius_r / 2 + radius_r * np.cos(
         t_param_class_b
     )
-    mu_y_class_b: NDArray[np.float64] = (
-        -separation_offset_d + radius_r * np.sin(t_param_class_b)
+    mu_y_class_b: np.ndarray = -separation_offset_d + radius_r * np.sin(
+        t_param_class_b
     )
 
-    mu_class_a: NDArray[np.float64] = np.column_stack(
-        (mu_x_class_a, mu_y_class_a)
-    )
-    mu_class_b: NDArray[np.float64] = np.column_stack(
-        (mu_x_class_b, mu_y_class_b)
-    )
+    mu_class_a: np.ndarray = np.column_stack((mu_x_class_a, mu_y_class_a))
+    mu_class_b: np.ndarray = np.column_stack((mu_x_class_b, mu_y_class_b))
 
-    sigma_matrix: NDArray[np.float64] = np.full(mu_class_a.shape, sigma)
+    sigma_matrix: np.ndarray = np.full(mu_class_a.shape, sigma)
 
-    mu_matrix_list: List[NDArray[np.float64]] = [mu_class_a, mu_class_b]
-    sigma_matrix_list: List[NDArray[np.float64]] = [sigma_matrix] * 2
-    choice_probabilities_list: List[NDArray[np.float64]] = [
+    mu_matrix_list: List[np.ndarray] = [mu_class_a, mu_class_b]
+    sigma_matrix_list: List[np.ndarray] = [sigma_matrix] * 2
+    choice_probabilities_list: List[np.ndarray] = [
         np.ones(n_clusters_per_class) / n_clusters_per_class
     ] * 2
     labels: List[str] = ["A", "B"]
