@@ -287,6 +287,90 @@ def generate_multiclass_multidistribution_dataset(
     return x_features, y_labels
 
 
+def generate_multiclass_multidistribution_dataset_torch(
+    n_samples_per_class: int,
+    mu_matrix_list: List[np.ndarray],
+    sigma_matrix_list: List[np.ndarray],
+    choice_probabilities_list: List[np.ndarray],
+    labels_list: List[str],
+) -> Tuple[Tensor, Tensor]:
+    """Generate a multi-class, multi-distribution, stochastic dataset.
+
+    This function generates a multi-class, multi-distribution stochastic
+    dataset to use for benchmarking machine learning algorithms on basic,
+    controlled datasets.
+
+    The distribution for a class is a weighted union of the multi-dimensional
+    distributions defined by mu_matrix and sigma_matrix, where each is an LxM
+    matrix, L is the number of distributions, and M is the number of dimensions
+    in each distribution. All distributions are normal. The probabilities in
+    choice_probabilities, a vector of length L will determine how frequently
+    each distribution is drawn from to create the overall union.
+
+    An NxM matrix is returned with N samples per class drawn from the
+    M-dimensional distributions with the draw probabilities specified by
+    choice_probabilities. For example, if 3 classes are specified with a 4
+    dimensional feature vector, and 100 samples per class, then the feature
+    matrix returned will be of shape 300 x 4. The label vector returned will
+    be of length 300.
+
+    **NOTE**: No bounds checking is performed for the user! Look before you
+    leap if unsure if input lists and arrays are of compatible size. It is the
+    responsibility of the user code to ensure that the following constraints
+    are met.
+
+        * Corresponding elements of mu_matrix_list and sigma_matrix_list must
+         have the same shape.
+
+        * Elements of choice_probabilities_list must have length equal to the
+          number of rows in sigma_matrix and mu_matrix.
+
+        * mu_matrix_list, sigma_matrix_list, choice_probabilities_list, and
+          labels must all have the same number of elements, corresponding to
+          the number of classes, K.
+
+        * All distributions defined must have the same number of dimensions, M
+          to ultimately be merged to an M-dimensional feature vector.
+
+    Args:
+        n_samples_per_class: The number of samples to generate for each class.
+
+        mu_matrix_list: K-element list of L_k x M matrices defining the means
+            of L_k M_k-dimensional normal distributions, where k is in [1, K]
+            such that each element defines a distribution which is the union of
+            L_k distributions.
+
+        sigma_matrix_list: K-element list of L_k x M matrices defining the
+            standard deviations of L_k M_k-dimensional normal distributions,
+            where k is in [1, K] such that each element defines a distribution
+            which is the union of L_k distributions.
+
+        choice_probabilities_list: K-element list of vectors, each of length
+            L_k defining the probability of sampling from each distribution,
+            where k is in [1, K] such that each element of the list defines the
+            weights of a weighted draw from each of the L_k distributions.
+
+        label_list: K-element list of labels where each label is a string.
+
+    Returns:
+        An NxM matrix with N samples drawn from the M-dimensional distributions
+            with the specified draw probabilities and an N-element vector of
+            class labels.
+    """
+    x_features, y_labels = generate_multiclass_multidistribution_dataset(
+        n_samples_per_class,
+        mu_matrix_list,
+        sigma_matrix_list,
+        choice_probabilities_list,
+        labels_list,
+    )
+    # Convert data to a torch tensor; reshape the labels into an Nx1 element
+    # matrix since this is what pytorch expects.
+    x_features_tensor = TorchTensor(x_features, dtype=TorchFloat32)
+    y_labels_tensor = TorchTensor(y_labels.reshape(-1, 1), dtype=TorchFloat32)
+    return x_features_tensor, y_labels_tensor
+
+
 def generate_xor_dataset(
     n_samples_per_class: int, sigma: float = 0
 ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
