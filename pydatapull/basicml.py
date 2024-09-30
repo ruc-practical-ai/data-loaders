@@ -4,6 +4,9 @@ from typing import List, Tuple
 
 import numpy as np
 from numpy.typing import NDArray
+from torch import Tensor
+from torch import float32 as TorchFloat32
+from torch import tensor as TorchTensor
 
 
 def _generate_random_columns(
@@ -190,7 +193,7 @@ def generate_multiclass_multidistribution_dataset(
     mu_matrix_list: List[np.ndarray],
     sigma_matrix_list: List[np.ndarray],
     choice_probabilities_list: List[np.ndarray],
-    labels: List[str],
+    labels_list: List[str],
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Generate a multi-class, multi-distribution, stochastic dataset.
 
@@ -231,6 +234,8 @@ def generate_multiclass_multidistribution_dataset(
           to ultimately be merged to an M-dimensional feature vector.
 
     Args:
+        n_samples_per_class: The number of samples to generate for each class.
+
         mu_matrix_list: K-element list of L_k x M matrices defining the means
             of L_k M_k-dimensional normal distributions, where k is in [1, K]
             such that each element defines a distribution which is the union of
@@ -253,7 +258,7 @@ def generate_multiclass_multidistribution_dataset(
             with the specified draw probabilities and an N-element vector of
             class labels.
     """
-    numerical_labels = np.arange(0, len(labels))
+    numerical_labels = np.arange(0, len(labels_list))
     class_distributions = []
     label_vectors = []
     for (
@@ -317,16 +322,45 @@ def generate_xor_dataset(
     return x_features, y_labels, labels
 
 
+def generate_xor_dataset_torch(
+    n_samples_per_class: int, sigma: float = 0
+) -> Tuple[Tensor, Tensor, List[str]]:
+    """Generate a noisy XOR dataset, ready to use with torch.
+
+    Args:
+        n_samples_per_class: the number of samples to generate per class (the
+            total number of samples will be twice the number specified).
+
+        sigma: the standard deviation of the noise applied to each dimension.
+
+    Returns:
+        Tuple with the features array as an NxM torch tensor where N is the
+        total number of samples and M is the number of features, the label
+        vector as an Nx1 torch tensor, and a list of sematic labels as strings.
+
+    Example:
+        >>> x_features, y_labels, labels = generate_xor_dataset(100, sigma=0.1)
+    """
+    x_features, y_labels, labels = generate_xor_dataset(
+        n_samples_per_class, sigma
+    )
+    # Convert data to a torch tensor; reshape the labels into an Nx1 element
+    # matrix since this is what pytorch expects.
+    x_features_tensor = TorchTensor(x_features, dtype=TorchFloat32)
+    y_labels_tensor = TorchTensor(y_labels.reshape(-1, 1), dtype=TorchFloat32)
+    return x_features_tensor, y_labels_tensor, labels
+
+
 def generate_half_moon_dataset(
     n_samples_per_class: int,
     n_clusters_per_class: int,
     radius_r: float,
     separation_offset_d: float,
     sigma: float,
-):
-    """Generate a noisy half moon dataset.
+) -> Tuple[np.ndarray, np.ndarray, List[str]]:
+    """Generate a noisy half-moon dataset.
 
-    The half moon classes are defined by the following equations:
+    The half-moon classes are defined by the following equations:
 
     The first class is defined by
 
@@ -354,10 +388,10 @@ def generate_half_moon_dataset(
             to a large number to make the classes appear as lines in feature
             space.
 
-        radius_r: the radius of the half moons. Set to larger values to
+        radius_r: the radius of the half-moons. Set to larger values to
             generate larger arcs.
 
-        separation_offset_d: defines how separated the half moons are in the
+        separation_offset_d: defines how separated the half-moons are in the
             y-dimension. Positive values increase separation and negative
             values decrease separation.
 
@@ -370,7 +404,7 @@ def generate_half_moon_dataset(
 
     Examples:
 
-    The following code generates a smooth and tight half moon example.
+    The following code generates a smooth and tight half-moon example.
 
         >>> x_features, y_labels, _ = generate_half_moon_dataset(
         >>>     n_samples_per_class=1000,
@@ -380,8 +414,8 @@ def generate_half_moon_dataset(
         >>>     sigma=0.1,
         >>> )
 
-    The following code generates a half moon example where the clusters
-    which comprise each half moon are apparent.
+    The following code generates a half-moon example where the clusters
+    which comprise each half-moon are apparent.
 
         >>> x_features, y_labels, _ = generate_half_moon_dataset(
         >>>     n_samples_per_class=1000,
@@ -429,3 +463,91 @@ def generate_half_moon_dataset(
         labels,
     )
     return x_features, y_labels, labels
+
+
+def generate_half_moon_dataset_torch(
+    n_samples_per_class: int,
+    n_clusters_per_class: int,
+    radius_r: float,
+    separation_offset_d: float,
+    sigma: float,
+) -> Tuple[Tensor, Tensor, List[str]]:
+    """Generate a noisy half-moon dataset.
+
+    The half-moon classes are defined by the following equations:
+
+    The first class is defined by
+
+        f_xa(t) = -r / 2 + r * cos(t_a),
+        f_ya(t) = d + r * sin(t_a),
+
+    where
+
+        0 <= t_a <= pi.
+
+    The second class is defined by
+
+        f_xb(t) = r / 2 + r * cos(t_b)
+        f_yb(t) = -d + r * np.sin(t_b)
+
+    where
+
+        pi <= t_b <= 2*pi.
+
+    Args:
+        n_samples_per_class: the number of samples to generate per class (the
+            total number of samples will be twice the number specified).
+
+        n_clusters_per_class: the number of clusters to generate per class. Set
+            to a large number to make the classes appear as lines in feature
+            space.
+
+        radius_r: the radius of the half-moons. Set to larger values to
+            generate larger arcs.
+
+        separation_offset_d: defines how separated the half-moons are in the
+            y-dimension. Positive values increase separation and negative
+            values decrease separation.
+
+        sigma: the standard deviation of the noise applied to each dimension.
+
+    Returns:
+        Tuple with the features array as an NxM array where N is the total
+        number of samples and M is the number of features, the label vector
+        as an N-element vector, and a list of sematic labels as strings.
+
+    Examples:
+
+    The following code generates a smooth and tight half-moon example.
+
+        >>> x_features, y_labels, _ = generate_half_moon_dataset(
+        >>>     n_samples_per_class=1000,
+        >>>     n_clusters_per_class=100,
+        >>>     radius_r=1,
+        >>>     separation_offset_d=-0.2,
+        >>>     sigma=0.1,
+        >>> )
+
+    The following code generates a half-moon example where the clusters
+    which comprise each half-moon are apparent.
+
+        >>> x_features, y_labels, _ = generate_half_moon_dataset(
+        >>>     n_samples_per_class=1000,
+        >>>     n_clusters_per_class=10,
+        >>>     radius_r=10,
+        >>>     separation_offset_d=-2,
+        >>>     sigma=0.2,
+        >>> )
+    """
+    x_features, y_labels, labels = generate_half_moon_dataset(
+        n_samples_per_class,
+        n_clusters_per_class,
+        radius_r,
+        separation_offset_d,
+        sigma,
+    )
+    # Convert data to a torch tensor; reshape the labels into an Nx1 element
+    # matrix since this is what pytorch expects.
+    x_features_tensor = TorchTensor(x_features, dtype=TorchFloat32)
+    y_labels_tensor = TorchTensor(y_labels.reshape(-1, 1), dtype=TorchFloat32)
+    return x_features_tensor, y_labels_tensor, labels
