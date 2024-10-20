@@ -12,7 +12,10 @@
 # Arguments:
 #    Argument 1 - specify the type of download: valid values are DOWNLOAD (use
 #    for a new download), REDOWNLAD (for redownloading a previous download),
-#    and RESUME (for resuming an unfinished download).
+#    and RESUME (for resuming an unfinished download). Note that REDOWNLOAD
+#    and RESUME will only work for versions of the NBIA installer that support
+#    resuming downloads. For other versions of the installer, just use
+#    DOWNLOAD.
 #
 #    Argument 2 - specify the timeout: specify the maximum time to wait for
 #    the download to complete in seconds (e.g., 30). Use -1 for no timeout.
@@ -80,7 +83,10 @@ This script assumes that expect is already installed in the environment.
 Arguments:
    Argument 1 - specify the type of download: valid values are DOWNLOAD (use
    for a new download), REDOWNLAD (for redownloading a previous download),
-   and RESUME (for resuming an unfinished download).
+   and RESUME (for resuming an unfinished download). Note that REDOWNLOAD
+   and RESUME will only work for versions of the NBIA installer that support
+   resuming downloads. For other versions of the installer, just use
+   DOWNLOAD.
 
    Argument 2 - specify the timeout: specify the maximum time to wait for
    the download to complete in seconds (e.g., 30). Use -1 for no timeout.

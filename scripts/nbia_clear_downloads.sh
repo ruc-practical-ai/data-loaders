@@ -31,9 +31,8 @@ echo "This will remove all files in $NBIA_DOWNLOADS_FOLDER."
 
 if confirm_action; then
     echo "Clearing NBIA Downloads folder in $NBIA_DOWNLOADS_FOLDER..."
-    rm -rf "$NBIA_DOWNLOADS_FOLDER"/manifest-*
+    rm -rf "$NBIA_DOWNLOADS_FOLDER"/*
     echo "Removed NBIA downloads."
-    bash "$SCRIPTS_FOLDER/nbia_remove_logs.sh"
 else
     echo "Quitting."
 fi
