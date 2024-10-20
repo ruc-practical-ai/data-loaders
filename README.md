@@ -204,6 +204,8 @@ The NBIA Data Retriever has both a command line and a graphical user interface. 
 
 For those who do need to interact directly with the NBIA Data Retriever, more information can be found on its CLI [here](https://wiki.cancerimagingarchive.net/display/NBIA/NBIA+Data+Retriever+Command-Line+Interface+Guide).
 
+New releases of the tool can be found in the [NBIA GitHub](https://github.com/CBIIT/NBIA-TCIA/releases).
+
 #### TCIA User Guide
 
 Complete instructions on interacting with TCIA can be found in the [user guide](https://wiki.cancerimagingarchive.net/display/NBIA/TCIA+Radiology+Portal+User%27s+Guide).
