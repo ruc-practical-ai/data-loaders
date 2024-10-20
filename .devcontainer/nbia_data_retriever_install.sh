@@ -14,21 +14,36 @@
 #
 # Usage:
 #
-# bash nbia_data_retriever_install.sh
+# bash nbia_data_retriever_install.sh /full/path/to/download_location
 #
 # =============================================================================
 
+# Check if the first argument is empty
+if [ -z "$1" ]; then
+  echo "First argument required."
+  echo ""
+  echo "Usage:"
+  echo "bash nbia_data_retriever_install.sh /full/path/to/download_location"
+  exit 1
+fi
+
 echo "Downloading NBIA Data Retriever..."
 
+# Note: newer versions of the NBIA data retriever are started to be hosted on
+# GitHub here: https://github.com/CBIIT/NBIA-TCIA/releases, however as of
+# 10/20/2024, the linux .deb and .rpm packages are still in pre-release.
+#
+# TODO: Change this to the latest valid Debian release once NBIA releases from
+# GitHub are mature enough.
 installer_web_location="https://cbiit-download.nci.nih.gov/nbia/releases/ForTCIA/NBIADataRetriever_4.4/nbia-data-retriever-4.4.2.deb"
-installer_downloads="/workspaces/data-loaders/downloads/installers"
+installer_downloads="$1"
 installer_local_location="$installer_downloads/nbia-data-retriever-4.4.2.deb"
 
 if [ -e "$installer_local_location" ]; then
     echo "NBIA installer exists. Proceeding with install."
 else
     echo "NBIA installer not found. Attempting to download."
-    wget -P "$installer_local_location" "$installer_web_location"
+    wget -P "$installer_downloads" "$installer_web_location"
 
     if [ $? -eq 0 ]; then
         echo "Downloaded NBIA Data Retriever!"
