@@ -6,20 +6,9 @@ This repository holds tools for loading datasets to be used in RUC's Practical A
 
 If developing on this project, it is recommended to use a locally hosted Dev Container. Codespaces is not recommended since downloading large datasets can consume space (which may be a problem if you want to stay under the free limit for codespaces).
 
-To install via a locally hosted Dev Container, confirm your machine has a local Dev Container compatible environment (e.g., confirm you have Docker Desktop and Windows Subsystem Linux if running on Windows). Clone the repository.
+To use this repository via a Dev Container, be sure you have the Dev Containers extension installed, along with Docker Desktop and WSL 2 (Windows only). Clone the repository, open VS Code in the repository root, and click the button shown in the pop up in the bottom-right corner to open in the Dev Container.
 
-```bash
-git clone https://github.com/ruc-practical-ai/data-loaders.git
-cd data-loaders
-```
-
-Navigate to the repository directory and open it in VS Code.
-
-```bash
-code .
-```
-
-VS Code should prompt you to open in a Dev Container. If it does not or if the container does not build, use the command `Cmd` / `Ctrl` + `Shift` + `P` &rarr; `Dev Containers: Rebuild Container`
+If the popup doesn't show type `Cmd` / `Ctrl` + `Shift` + `P` &rarr; `Reopen in Container` (if the container is already built) or `Cmd` / `Ctrl` + `Shift` + `P` &rarr; `Build and Open in Container` if the container is not yet built.
 
 ## Usage in a Dev Container
 
@@ -30,20 +19,6 @@ VS Code should prompt you to open in a Dev Container. If it does not or if the c
 ### Using the NBIA Data Loaders via a Devcontainer
 
 @TODO (Mauro Sanchirico): Populate
-
-### Display of Presentations in a Dev Container
-
-This repository contains some presentations made in reveal.js. To view this, navigate to the `presentations` folder.
-
-```bash
-cd presentations
-```
-
-Start an http-server.
-
-```bash
-bash ../scripts/start_server.sh
-```
 
 ## Installation as a Component of Another Project
 
@@ -110,65 +85,19 @@ The NBIA Data Retriever command line interface is required to run some scripts i
 
 Scripts in this repository require the [expect](https://linux.die.net/man/1/expect) linux utility. Some scripts require expect to work. Install expect using the preferred method for your system.
 
-#### Reveal.js
-
-This project uses [reveal.js](https://revealjs.com/) for some presentations in the `presentations` folder. All reveal.js dependencies are included in the repository. The repository itself is a modified [basic setup](https://revealjs.com/installation/#basic-setup) of reveal.js.
-
 #### Poetry
 
 This project is built on Python 3.12. Poetry is required for installation. To install Poetry, view the instructions [here](https://python-poetry.org/docs/).
 
-#### TexLive
-
-This project also requires TexLive to render math fonts. Texlive can be installed via the following commands.
-
-```bash
-sudo apt-get -y update
-sudo apt-get -y install texlive
-sudo apt-get -y install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
-```
-
 ### Local Installation Steps
 
-#### Project Cloning
+The dependencies required for local installation can be found in `.devcontainer/Dockerfile` and `.devcontainer/configure_environment.sh`.
 
-To install locally, first install the required dependencies (Poetry and TexLive), then clone the repository and navigate to its directory.
+For local installation, perform set up and install dependencies in the order they appear in the Dockerfile and the configuration script, starting with the Dockerfile.
 
-```bash
-git clone https://github.com/ruc-practical-ai/data-loaders.git
-cd data-loaders
-```
+Final setup commands can be found in `.devcontainer/post_attach.sh`.
 
-#### Installing Python Dependencies Locally
-
-To install locally, first install the required dependencies (Poetry and TexLive), then clone the repository and navigate to its directory.
-
-```bash
-git clone https://github.com/ruc-practical-ai/data-loaders.git
-cd data-loaders
-```
-
-Configure Poetry to install its virtual environment inside the repository directory.
-
-```bash
-poetry config virtualenvs.in-project true
-```
-
-Install the repository's Python dependencies.
-
-```bash
-poetry install
-```
-
-Check where Poetry built the virtual environment with the following command.
-
-```bash
-poetry env info --path
-```
-
-Open the command pallette with `Ctrl` + `Shift` + `P` and type `Python: Select Interpreter`.
-
-Now specify that VSCode should use the that interpreter (the one in `./.venv/Scripts/python.exe`). Once you specify this, Jupyter notebooks should show the project's interpreter as an option when you click the `kernel` icon or the small icon showing the current version of python (e.g., `Python 3.12.1`) and then click `Select Another Kernel`, and finally click `Python Environments...`.
+Note that setup will be different depending on the local OS.
 
 ## About the Datasets
 
